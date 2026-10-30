@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Atlantic™ — your AI assistant</title>
+<meta name="description" content="Atlantic™ is an AI assistant that writes, explains, calculates and creates images — right in your browser. Open it at gscnet.go.ro/atlantic." />
+<meta name="theme-color" content="#1b1a20" />
+<meta property="og:title" content="Atlantic™ — your AI assistant" />
+<meta property="og:description" content="Writes, explains, calculates and creates images. Right in your browser, with your GSCNET account." />
+<meta property="og:image" content="assets/logo.png" />
+<meta property="og:type" content="website" />
+<link rel="icon" href="assets/logo.png" />
+<link rel="apple-touch-icon" href="assets/logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#1b1a20;
+    --surface:#25242b;
+    --card:rgba(255,255,255,.035);
+    --line:rgba(255,255,255,.08);
+    --text:#ececf1;
+    --muted:rgba(236,236,241,.62);
+    --dim:rgba(236,236,241,.4);
+    --accent:#a99cff;
+    --gold:#dccfae;
+    --mint:#7ee0b0;
+    --font:'Inria Serif', Georgia, 'Times New Roman', serif;
+    --radius:18px;
+  }
+
+  *{box-sizing:border-box;}
+
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    min-height:100vh;
+    font-family:var(--font);
+    font-size:17px;
+    line-height:1.65;
+    color:var(--text);
+    background-color:var(--bg);
+    background-image:
+      radial-gradient(900px 520px at 50% -20%, rgba(169,156,255,.17), transparent 70%),
+      radial-gradient(700px 420px at 95% 6%, rgba(220,207,174,.07), transparent 72%),
+      linear-gradient(160deg,#1d1b25 0%,#1b1a20 45%,#18171c 100%);
+    background-attachment:fixed;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  .wrap{
+    width:100%;
+    max-width:800px;
+    margin:0 auto;
+    padding:0 26px;
+  }
+
+  a{color:var(--accent);}
+
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding:22px 0;
+  }
+
+  .brand{
+    display:inline-flex;
+    align-items:center;
+    gap:11px;
+    text-decoration:none;
+    color:var(--text);
+    font-weight:700;
+    font-size:19px;
+    letter-spacing:.01em;
+  }
+
+  .brand img{
+    width:30px;
+    height:30px;
+    border-radius:9px;
+    border:1px solid rgba(255,255,255,.1);
+    display:block;
+  }
+
+  .navlink{
+    font-size:14.5px;
+    color:var(--muted);
+    text-decoration:none;
+    white-space:nowrap;
+    transition:color .2s ease;
+  }
+
+  .navlink:hover{color:var(--text);}
+
+  .hero{
+    padding:64px 0 58px;
+    text-align:center;
+  }
+
+  .mark{
+    display:block;
+    width:104px;
+    height:104px;
+    margin:0 auto 26px;
+    border-radius:26px;
+    border:1px solid rgba(255,255,255,.1);
+    background:var(--bg);
+    box-shadow:0 22px 60px rgba(169,156,255,.22);
+  }
+
+  h1{
+    margin:0 0 16px;
+    font-size:clamp(38px,7vw,56px);
+    line-height:1.08;
+    font-weight:700;
+    letter-spacing:-.015em;
+  }
+
+  .lede{
+    margin:0 auto 32px;
+    max-width:540px;
+    font-size:clamp(17px,2.3vw,20px);
+    line-height:1.6;
+    color:var(--muted);
+  }
+
+  .actions{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+  }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    padding:14px 28px;
+    border-radius:999px;
+    font-family:var(--font);
+    font-size:16.5px;
+    font-weight:700;
+    text-decoration:none;
+    border:1px solid transparent;
+    transition:transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+  }
+
+  .btn-primary{
+    background:var(--accent);
+    color:#17161b;
+    box-shadow:0 14px 40px rgba(169,156,255,.26);
+  }
+
+  .btn-primary:hover{
+    transform:translateY(-2px);
+    box-shadow:0 18px 48px rgba(169,156,255,.36);
+  }
+
+  .btn-ghost{
+    color:var(--text);
+    border-color:var(--line);
+    background:rgba(255,255,255,.03);
+  }
+
+  .btn-ghost:hover{
+    border-color:rgba(169,156,255,.4);
+    background:rgba(255,255,255,.06);
+  }
+
+  .section{
+    padding:52px 0;
+    border-top:1px solid var(--line);
+  }
+
+  h2{
+    margin:0 0 8px;
+    font-size:24px;
+    font-weight:700;
+    letter-spacing:.01em;
+  }
+
+  .sub{
+    margin:0 0 26px;
+    font-size:15.5px;
+    color:var(--dim);
+  }
+
+  .section p{
+    margin:0 0 18px;
+    color:var(--muted);
+  }
+
+  .section p:last-child{margin-bottom:0;}
+
+  .grid{
+    display:grid;
+    gap:14px;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  }
+
+  .card{
+    padding:20px 22px;
+    border-radius:var(--radius);
+    border:1px solid var(--line);
+    background:var(--card);
+    transition:border-color .25s ease, background .25s ease, transform .25s ease;
+  }
+
+  .card:hover{
+    border-color:rgba(169,156,255,.4);
+    background:rgba(255,255,255,.055);
+    transform:translateY(-2px);
+  }
+
+  .card h3{
+    margin:0 0 6px;
+    font-size:17px;
+    font-weight:700;
+    color:var(--text);
+  }
+
+  .card p{
+    margin:0;
+    font-size:15px;
+    line-height:1.6;
+  }
+
+  .chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:20px;
+  }
+
+  .chip{
+    padding:7px 16px;
+    border-radius:999px;
+    border:1px solid var(--line);
+    background:rgba(220,207,174,.05);
+    color:var(--gold);
+    font-size:14.5px;
+    white-space:nowrap;
+  }
+
+  .steps{
+    list-style:none;
+    counter-reset:step;
+    margin:0;
+    padding:0;
+    display:grid;
+    gap:16px;
+  }
+
+  .steps li{
+    counter-increment:step;
+    position:relative;
+    padding:1px 0 1px 54px;
+    color:var(--muted);
+  }
+
+  .steps li::before{
+    content:counter(step);
+    position:absolute;
+    left:0;
+    top:0;
+    width:34px;
+    height:34px;
+    display:grid;
+    place-items:center;
+    border-radius:12px;
+    border:1px solid rgba(169,156,255,.22);
+    background:rgba(169,156,255,.1);
+    color:var(--accent);
+    font-size:15px;
+    font-weight:700;
+  }
+
+  .steps strong{color:var(--text);}
+
+  .cta{
+    padding:40px 26px;
+    text-align:center;
+    border-radius:24px;
+    border:1px solid rgba(169,156,255,.18);
+    background:
+      radial-gradient(420px 200px at 50% 0%, rgba(169,156,255,.14), transparent 70%),
+      rgba(255,255,255,.03);
+  }
+
+  .cta h2{margin-bottom:10px;font-size:26px;}
+
+  .cta p{margin:0 0 24px;color:var(--muted);font-size:16px;}
+
+  .footer{
+    padding:44px 0 60px;
+    border-top:1px solid var(--line);
+    text-align:center;
+    font-size:14px;
+    color:var(--dim);
+  }
+
+  .footer p{margin:0 0 6px;}
+
+  .footer a{color:var(--muted);text-decoration:none;}
+
+  .footer a:hover{color:var(--text);}
+
+  .footer .fine{
+    margin-top:16px;
+    font-size:12.5px;
+    color:rgba(236,236,241,.32);
+  }
+
+  @media (max-width:560px){
+    .wrap{padding:0 18px;}
+    .hero{padding:44px 0 46px;}
+    .section{padding:42px 0;}
+    .btn{width:100%;}
+    .actions{gap:10px;}
+  }
+</style>
+</head>
+<body id="top">
+
+  <div class="wrap">
+
+    <header class="nav">
+      <a class="brand" href="#top">
+        <img src="assets/logo.png" alt="" width="30" height="30" />
+        <span>Atlantic™</span>
+      </a>
+      <a class="navlink" href="https://gscnet.go.ro/atlantic">gscnet.go.ro/atlantic ↗</a>
+    </header>
+
+    <main>
+
+      <section class="hero">
+        <img class="mark" src="assets/logo.png" alt="Atlantic™ logo" width="104" height="104" />
+        <h1>Atlantic™</h1>
+        <p class="lede">An AI assistant that writes, explains, calculates and creates images — right in your browser, with nothing to install.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://gscnet.go.ro/atlantic">Open Atlantic™</a>
+          <a class="btn btn-ghost" href="#what-it-can-do">What it can do</a>
+        </div>
+      </section>
+
+      <section class="section" id="what-it-is">
+        <h2>What is Atlantic™?</h2>
+        <p class="sub">An AI assistant made by GSC Studios.</p>
+        <p>You talk to it the way you talk to a person: ask it to write an email, explain a lesson, work out a calculation, throw ideas around or generate an image. Everything happens in the browser — open the link, sign in with your GSCNET account and type your first message.</p>
+        <p>It is part of the GSC ecosystem, alongside <a href="https://gscnet.go.ro">GSCNET</a> — your private file vault and temporary link sharing. One account, the same data, the same experience.</p>
+      </section>
+
+      <section class="section" id="what-it-can-do">
+        <h2>What it can do</h2>
+        <p class="sub">Six things you can get done in a single conversation.</p>
+        <div class="grid">
+          <div class="card">
+            <h3>Natural conversation</h3>
+            <p>Questions, explanations, summaries, rewrites and ideas on any topic.</p>
+          </div>
+          <div class="card">
+            <h3>Image generation</h3>
+            <p>Describe what you want to see and get the image, right in the conversation.</p>
+          </div>
+          <div class="card">
+            <h3>Sites &amp; Projects</h3>
+            <p>Keep your work organised in projects, each with its own space.</p>
+          </div>
+          <div class="card">
+            <h3>Chat search</h3>
+            <p>Find the conversation from three days ago in an instant, without scrolling.</p>
+          </div>
+          <div class="card">
+            <h3>Attachments, images and voice</h3>
+            <p>Hand it a file, a photo, or just talk — no copy-pasting text.</p>
+          </div>
+          <div class="card">
+            <h3>Several models, one place</h3>
+            <p>Pick the right model for the job from one menu, with no separate accounts.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="models">
+        <h2>The models available</h2>
+        <p class="sub">All in one menu, in the same conversation.</p>
+        <p>From quick short answers to complex tasks or images — switch model with a single click, whenever you like.</p>
+        <div class="chips">
+          <span class="chip">Atl0s Mini</span>
+          <span class="chip">Atl0s</span>
+          <span class="chip">Atl0s Vision</span>
+          <span class="chip">Atl0s Pro</span>
+        </div>
+      </section>
+
+      <section class="section" id="getting-started">
+        <h2>Getting started</h2>
+        <p class="sub">Three steps, no install.</p>
+        <ol class="steps">
+          <li>Open <a href="https://gscnet.go.ro/atlantic">gscnet.go.ro/atlantic</a>.</li>
+          <li>Sign in with your <strong>GSCNET</strong> account — the same account across the whole GSC ecosystem.</li>
+          <li>Type whatever is on your mind. <strong>Atlantic™</strong> takes it from there.</li>
+        </ol>
+        <p style="margin-top:22px;">There is a <strong>FREE</strong> plan to try it out, and you can upgrade any time. Your chats and projects stay yours, whatever the plan.</p>
+      </section>
+
+      <section class="section">
+        <div class="cta">
+          <h2>Ready to try it?</h2>
+          <p>Open Atlantic™ and write your first message now.</p>
+          <a class="btn btn-primary" href="https://gscnet.go.ro/atlantic">Open Atlantic™ →</a>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <p><a href="https://gscnet.go.ro/atlantic">gscnet.go.ro/atlantic</a> · <a href="https://gscnet.go.ro">gscnet.go.ro</a></p>
+      <p>© GSC Studios · Atlantic™</p>
+      <p class="fine">Atlantic™ is an AI and can make mistakes. Please re-check important info.</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
